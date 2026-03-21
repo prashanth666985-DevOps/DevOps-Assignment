@@ -59,7 +59,6 @@ Should use Gunicorn inside Service A. So that I hv added
 Install Gunicorn in service-a Dockerfile as below
 # Install curl + gunicorn + app dependencies
 RUN apt-get update && apt-get install -y curl \
-    && pip install --no-cache-dir -r requirements.txt \
-    && pip install gunicorn
+    && pip install --no-cache-dir -r requirements.txt
 
 CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]

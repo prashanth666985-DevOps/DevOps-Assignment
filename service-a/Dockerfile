@@ -7,8 +7,7 @@ COPY . .
 
 # Install curl + gunicorn + app dependencies
 RUN apt-get update && apt-get install -y curl \
-    && pip install --no-cache-dir -r requirements.txt \
-    && pip install gunicorn
+    && pip install --no-cache-dir -r requirements.txt
 
 ENV SECRET_KEY=supersecret123
 ENV DB_PASSWORD=admin1234
