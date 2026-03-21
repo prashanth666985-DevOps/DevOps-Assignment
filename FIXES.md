@@ -5,7 +5,7 @@ Document every issue you find and fix in this file.
 ---
 
 ## Fix 1: [Short title of the issue]
-Incorrect Inter-Service Communication
+Incorrect Inter Service Communication
 
 **What was wrong:**
 Service B was configured to call Service A using
@@ -20,15 +20,18 @@ Updated the service URL to use Docker Compose service name as below in the dokce
 environment:
   - SERVICE_A_URL=http://service-a:5000
 
-This allows Docker’s internal DNS to resolve service-a to the correct container.
+This allows Docker’s internal DNS to resolve service-a to the correct container. Services cannot communicate. Continuous connection failures. Application becomes non functional in containerized environments.
 
 **What could go wrong if left unfixed:**
 Services cannot communicate. Continuous connection failures. Application becomes non functional in containerized environments.
+
 ---
 
 ## Fix 2: [Short title of the issue]
+
 Environment Variable Not Reflected in Running Containers
 Even after updating docker-compose.yml, the application was still using old configuration.
+
 ---
 **How I fixed it:**
 
@@ -42,7 +45,7 @@ Add Healthcheck for Service A likebelow in the docker-compose.yaml file
 
 ### Improvement 1:
 
-Add Healthcheck for Service A likebelow in the docker-compose.yaml file
+Added Healthcheck for Service A likebelow in the docker-compose.yaml file
 
 healthcheck:
   test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
@@ -53,10 +56,10 @@ This Ensures Ensures Service A is ready before Service B starts using it.
 
 Improves reliability also
 
-
 ### Improvement 2:
 Should use Gunicorn inside Service A. So that I hv added 
 Install Gunicorn in service-a Dockerfile as below
+
 # Install curl + gunicorn + app dependencies
 RUN apt-get update && apt-get install -y curl \
     && pip install --no-cache-dir -r requirements.txt
