@@ -59,6 +59,11 @@ Improves reliability also
 ### Improvement 2:
 Should use Gunicorn inside Service A. So that I hv added 
 Install Gunicorn in service-a Dockerfile as below
+Removed Root users in the all Docker files added user
+Added .env file instead of using hard coded DB creadentials. env variables injected at the run time
+used alpine light weight image for Docker image optimisation
+Implemented github actions and updated workflow file
+
 
 # Install curl + gunicorn + app dependencies
 RUN apt-get update && apt-get install -y curl \
