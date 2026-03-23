@@ -1,22 +1,29 @@
-name: CI/CD Pipeline
+name: DevOps Assignment CI
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Build and push
+      - name: Build and run containers
         run: |
-          docker login -u myuser -p mypassword123
-          docker build -t myorg/devops-app:latest ./service-a
-          docker push myorg/devops-app:latest
+          docker compose up --build -d
 
-      - name: Deploy to server
-        run: |
-          ssh -o StrictHostKeyChecking=no root@203.0.113.45 "docker pull myorg/devops-app:latest && docker restart service-a"
+      - name: Wait for services
+        run: sleep 15
+
+      - name: Test Service A
+        run: curl http://localhost:5000/health
+
+      - name: Check Service B logs
+        run: docker logs $(docker ps -q --filter "name=service-b")
+
+      - name: Stop containers
+        run: docker compose down
