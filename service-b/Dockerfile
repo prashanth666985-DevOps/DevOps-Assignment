@@ -1,12 +1,12 @@
 # Service B Dockerfile
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN npm install && adduser -D appuser
 
-USER root
+USER appuser
 
 CMD ["node", "worker.js"]

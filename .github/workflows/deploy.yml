@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: DevOps Assignment CI
+=======
+name: DevOps CI Pipeline
+>>>>>>> 501f721 (used alpine light weight image for all Docker images for optimied Docker image. Removed root users in the Docker file and created .env file,removed hard coded sensitive data like db pssword and user name,And upadate workflow file. added git hub action for ci.)
 
 on:
   push:
@@ -13,13 +17,21 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build and run containers
+<<<<<<< HEAD
         run: |
           docker compose up --build -d
+=======
+        run: docker compose up --build -d
+>>>>>>> 501f721 (used alpine light weight image for all Docker images for optimied Docker image. Removed root users in the Docker file and created .env file,removed hard coded sensitive data like db pssword and user name,And upadate workflow file. added git hub action for ci.)
 
       - name: Wait for services
         run: sleep 15
 
+<<<<<<< HEAD
       - name: Test Service A
+=======
+      - name: Test Service A health
+>>>>>>> 501f721 (used alpine light weight image for all Docker images for optimied Docker image. Removed root users in the Docker file and created .env file,removed hard coded sensitive data like db pssword and user name,And upadate workflow file. added git hub action for ci.)
         run: curl http://localhost:5000/health
 
       - name: Check Service B logs

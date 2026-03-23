@@ -3,19 +3,23 @@ version: '3'
 services:
   service-a:
     build: ./service-a
+    env_file:
+      - .env
+    #environment:
+      #SECRET_KEY: ${SECRET_KEY}
+      #DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5000:5000"
-    environment:
-      - DB_PASSWORD=admin1234
-      - SECRET_KEY=supersecret123
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 10s
+      timeout: 5s
       retries: 3
 
   service-b:
     build: ./service-b
-    depends_on:
-      - service-a
     environment:
-      - SERVICE_A_URL=http://service-a:5000
+      SERVICE_A_URL: http://service-a:5000
+    depends_on:
+      service-a:
+        condition: service_healthy

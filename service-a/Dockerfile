@@ -1,5 +1,5 @@
 # Service A Dockerfile
-FROM python:3.11
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -7,14 +7,12 @@ COPY . .
 
 # Install curl + gunicorn + app dependencies
 RUN apt-get update && apt-get install -y curl \
-    && pip install --no-cache-dir -r requirements.txt
+    && pip install --no-cache-dir -r requirements.txt \
+    && useradd -m appuser
 
-ENV SECRET_KEY=supersecret123
-ENV DB_PASSWORD=admin1234
+USER appuser
 
 EXPOSE 5000
-
-USER root
 
 #CMD ["python", "app.py"]
 
